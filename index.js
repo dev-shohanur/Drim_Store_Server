@@ -75,6 +75,8 @@ async function run() {
             const product = await productsCollection.find(query).toArray();
             res.send(product)
         })
+
+        //Reported Product Load
         app.get('/report/product', async (req, res) => {
             const query = { soldStatus: 'unsold', productReport:'true'};
             console.log(query);
