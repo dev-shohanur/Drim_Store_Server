@@ -56,6 +56,8 @@ async function run() {
             const category = await categoryCollection.find(query).toArray();
             res.send(category)
         })
+
+        
         app.get('/category/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
@@ -65,10 +67,10 @@ async function run() {
             res.send(category)
         })
         app.get('/advertise/product', async (req, res) => {
-            const query = {soldStatus: 'unsold',advertise:'true'};
+            const query = {soldStatus:'unsold',advertise:'true'};
             console.log(query);
-            const category = await productsCollection.find(query).toArray();
-            res.send(category)
+            const product = await productsCollection.find(query).toArray();
+            res.send(product)
         })
         app.get('/report/product', async (req, res) => {
             const query = { soldStatus: 'unsold', productReport:'true'};
@@ -242,6 +244,18 @@ async function run() {
                 }
             }
             const result = await productsCollection.updateOne(filter, updateDoc, options);
+            res.send(result);
+        })
+        app.put('/dashboard/seller/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: 'verify'
+                }
+            }
+            const result = await usersCollection.updateOne(filter, updateDoc, options);
             res.send(result);
         })
         app.put('/productReportToAdmin/:id', async (req, res) => {
