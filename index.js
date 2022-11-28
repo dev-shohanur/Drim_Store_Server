@@ -143,7 +143,7 @@ async function run() {
         })
 
         //Check user isBuyer API
-        
+
         app.get('/users/buyer/:email', async (req, res) => {
             const email = req.params.email;
             const query = { email };
@@ -151,6 +151,8 @@ async function run() {
             res.send({ isBuyer: user?.role === 'Buyer' });
         })
 
+
+        //Check user isSeller API
 
         app.get('/users/seller/:email', async (req, res) => {
             const email = req.params.email;
