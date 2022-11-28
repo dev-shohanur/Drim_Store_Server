@@ -83,6 +83,8 @@ async function run() {
             const category = await productsCollection.find(query).toArray();
             res.send(category)
         })
+
+        //Reported Product Load
         app.get('/categoryTitles', async (req, res) => {
             const query = {};
             const categoryTitles = await categoryCollection.find(query).project({title: 1}).toArray();
