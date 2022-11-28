@@ -70,7 +70,7 @@ async function run() {
         //Advertise Product Load
 
         app.get('/advertise/product', async (req, res) => {
-            const query = {soldStatus:'unsold',advertise:'true'};
+            const query = { soldStatus: 'unsold', advertise: 'true' };
             console.log(query);
             const product = await productsCollection.find(query).toArray();
             res.send(product)
@@ -78,7 +78,7 @@ async function run() {
 
         //Reported Product Load
         app.get('/report/product', async (req, res) => {
-            const query = { soldStatus: 'unsold', productReport:'true'};
+            const query = { soldStatus: 'unsold', productReport: 'true' };
             console.log(query);
             const category = await productsCollection.find(query).toArray();
             res.send(category)
@@ -87,11 +87,11 @@ async function run() {
         //Reported Product Load
         app.get('/categoryTitles', async (req, res) => {
             const query = {};
-            const categoryTitles = await categoryCollection.find(query).project({title: 1}).toArray();
+            const categoryTitles = await categoryCollection.find(query).project({ title: 1 }).toArray();
             res.send(categoryTitles)
         })
 
-
+        //Payment API
         app.post('/payment', async (req, res) => {
             const payment = req.body;
             const result = await paymentCollection.insertOne(payment);
@@ -107,10 +107,12 @@ async function run() {
             }
             const orderPaid = await bookingsCollection.updateOne(filter, updateDoc);
             console.log(orderPaid)
-            // const paidData = await bookingsCollection.updateOne({ _id: ObjectId(orderPaid.productId) });
 
             res.send(result)
         })
+
+
+        //Payment API
 
         app.post('/create-payment-intent', async (req, res) => {
             const booking = req.body;
@@ -155,16 +157,16 @@ async function run() {
 
         app.get('/dashboard/:role', async (req, res) => {
             const role = req.params.role;
-            const query = {role};
+            const query = { role };
             const user = await usersCollection.find(query).toArray();
             res.send(user);
         })
 
-       
+
 
         app.get('/user', async (req, res) => {
             const email = req.query.email;
-            const query = { email: email}
+            const query = { email: email }
             const result = await usersCollection.findOne(query);
             res.send(result);
         })
@@ -192,7 +194,7 @@ async function run() {
         app.get('/booking/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
-            const query = { _id: ObjectId(id)}
+            const query = { _id: ObjectId(id) }
             const result = await bookingsCollection.findOne(query);
             res.send(result)
         })
@@ -221,14 +223,14 @@ async function run() {
             res.send(result);
         })
 
-    
+
         app.delete('/dashboard/buyer/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await usersCollection.deleteOne(query);
             res.send(result);
         })
-       
+
         app.put('/product/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
