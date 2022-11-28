@@ -57,7 +57,7 @@ async function run() {
             res.send(category)
         })
 
-        
+
         app.get('/category/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
@@ -66,6 +66,9 @@ async function run() {
             const category = await productsCollection.find(query).toArray();
             res.send(category)
         })
+
+        //Advertise Product Load
+
         app.get('/advertise/product', async (req, res) => {
             const query = {soldStatus:'unsold',advertise:'true'};
             console.log(query);
